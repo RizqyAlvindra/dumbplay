@@ -20,7 +20,7 @@ jobs:
   testing:
 
     runs-on: ubuntu-latest
-    needs: [install]
+    need: [install]
 
     steps:
     - uses: actions/checkout@v3
@@ -43,13 +43,12 @@ jobs:
     - name: push docker image to registry
       run: echo "docker push registry.mejik.id/custom/alvin:testing"
 
-  archives:
+  release:
     
     runs-on: ubuntu-latest
-    needs: [build]
-
-    steps:
-    - uses: actions/checkout@v3
+    needs: [build,archives]
+    
+    steps:  
     - name: zip-repository
       id: repo_zip
       run: zip -r v1.0.${{ github.run_number }}.zip . 
@@ -57,14 +56,7 @@ jobs:
     #   uses: actions/upload-artifact@v2
     #   with:
     #     name: v1.0.${{ github.run_number }}.zip
-    #     path: v1.0.${{ github.run_number }}.zip
-
-  release:
-    
-    runs-on: ubuntu-latest
-    needs: [build,archives]
-    
-    steps:  
+    #     path: v1.0.${{ github.run_number }}.zip    
     - name: Create Github Release
       id: create_release
       uses: actions/create-release@v1
