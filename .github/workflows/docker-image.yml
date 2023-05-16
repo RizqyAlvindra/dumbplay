@@ -53,11 +53,11 @@ jobs:
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.0.${{ github.run_number }}
-          release_name: Release 1.0.${{ github.run_number }}
-          draft: false
-          prerelease: false
+      with:
+        tag_name: v1.0.${{ github.run_number }}
+        release_name: Release 1.0.${{ github.run_number }}
+        draft: false
+        prerelease: false
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
