@@ -50,7 +50,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: zip repository
+    - name: zip-repository
       id: repo_zip
       run: zip -r v1.0.${{ github.run_number }}.zip . 
     # - name: upload artifact
@@ -81,6 +81,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./${{ jobs.archives.steps.repo_zip.outputs.upload_url }}
+        asset_path: ./${{ jobs.archives.steps.zip-repository.outputs.upload_url }}
         asset_name: v1.0.${{ github.run_number }}
         asset_content_type: application/octet-stream
