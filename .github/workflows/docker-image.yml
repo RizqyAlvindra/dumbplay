@@ -49,7 +49,8 @@ jobs:
     needs: [install,testing,build]
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
     
-    steps:  
+    steps:
+    - uses: actions/checkout@v3  
     - name: Zip repository
       run: zip -r v1.0.${{ github.run_number }}.zip . 
     - name: upload artifact
