@@ -1,0 +1,22 @@
+name: Testing Github Action
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build --file Dockerfile --tag registry.mejik.id/custom/alvin:testing .
+    - name: login docker registry private
+      run: docker login registry.mejik.id -u mejik -p Mejik2169
+    - name: push docker image to registry
+      run: docker push registry.mejik.id/custom/alvin:testing
